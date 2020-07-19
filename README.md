@@ -1,1 +1,1 @@
-https://xiaoxianma.github.io/uiuc-dv-narrative-dis
+https://xiaoxianma.github.io/uiuc-dv-narrative-vis
