@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/uiuc-ds-narrative-vis/static/css/main.d1b05096.chunk.css",
-    "main.js": "/uiuc-ds-narrative-vis/static/js/main.81132c94.chunk.js",
-    "main.js.map": "/uiuc-ds-narrative-vis/static/js/main.81132c94.chunk.js.map",
-    "runtime-main.js": "/uiuc-ds-narrative-vis/static/js/runtime-main.17a6ae07.js",
-    "runtime-main.js.map": "/uiuc-ds-narrative-vis/static/js/runtime-main.17a6ae07.js.map",
-    "static/js/2.67f605d9.chunk.js": "/uiuc-ds-narrative-vis/static/js/2.67f605d9.chunk.js",
-    "static/js/2.67f605d9.chunk.js.map": "/uiuc-ds-narrative-vis/static/js/2.67f605d9.chunk.js.map",
-    "index.html": "/uiuc-ds-narrative-vis/index.html",
-    "precache-manifest.2423ce0c9927fc201640b40f8d297cfd.js": "/uiuc-ds-narrative-vis/precache-manifest.2423ce0c9927fc201640b40f8d297cfd.js",
-    "service-worker.js": "/uiuc-ds-narrative-vis/service-worker.js",
-    "static/css/main.d1b05096.chunk.css.map": "/uiuc-ds-narrative-vis/static/css/main.d1b05096.chunk.css.map",
-    "static/js/2.67f605d9.chunk.js.LICENSE.txt": "/uiuc-ds-narrative-vis/static/js/2.67f605d9.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/uiuc-ds-narrative-vis/static/media/logo.5d5d9eef.svg"
+    "main.css": "/uiuc-dv-narrative-vis/static/css/main.d1b05096.chunk.css",
+    "main.js": "/uiuc-dv-narrative-vis/static/js/main.7887e58c.chunk.js",
+    "main.js.map": "/uiuc-dv-narrative-vis/static/js/main.7887e58c.chunk.js.map",
+    "runtime-main.js": "/uiuc-dv-narrative-vis/static/js/runtime-main.4bc5ce6b.js",
+    "runtime-main.js.map": "/uiuc-dv-narrative-vis/static/js/runtime-main.4bc5ce6b.js.map",
+    "static/js/2.67f605d9.chunk.js": "/uiuc-dv-narrative-vis/static/js/2.67f605d9.chunk.js",
+    "static/js/2.67f605d9.chunk.js.map": "/uiuc-dv-narrative-vis/static/js/2.67f605d9.chunk.js.map",
+    "index.html": "/uiuc-dv-narrative-vis/index.html",
+    "precache-manifest.d5aec3b04f9c4a2322662ea3a0e7a884.js": "/uiuc-dv-narrative-vis/precache-manifest.d5aec3b04f9c4a2322662ea3a0e7a884.js",
+    "service-worker.js": "/uiuc-dv-narrative-vis/service-worker.js",
+    "static/css/main.d1b05096.chunk.css.map": "/uiuc-dv-narrative-vis/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.67f605d9.chunk.js.LICENSE.txt": "/uiuc-dv-narrative-vis/static/js/2.67f605d9.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/uiuc-dv-narrative-vis/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.17a6ae07.js",
+    "static/js/runtime-main.4bc5ce6b.js",
     "static/js/2.67f605d9.chunk.js",
     "static/css/main.d1b05096.chunk.css",
-    "static/js/main.81132c94.chunk.js"
+    "static/js/main.7887e58c.chunk.js"
   ]
 }
