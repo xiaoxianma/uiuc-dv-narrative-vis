@@ -17,7 +17,6 @@ This project is about to present the narrative visualization of the world happin
 ### Triggers
 
 ### Data Sources
-1. [World Happiness Report 2020](https://worldhappiness.report/ed/2020/)
-2. [World Happiness Dataset 2020](https://data.world/makeovermonday/2020w19-world-happiness-report-2020)
-3. [GDP Per Capita by the World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD)
+1. [World Happiness Report 2019](https://worldhappiness.report/ed/2020/)
+2. [World Happiness Dataset 2019](https://kaggle.com/roshansharma/world-happiness-report)
 
