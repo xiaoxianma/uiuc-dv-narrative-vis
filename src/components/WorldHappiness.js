@@ -25,6 +25,11 @@ export default function WorldHappiness() {
         });
     }, []);
 
+    const handleClick = (target, e) => {
+        console.log(e);
+        debugger;
+    }
+
     return (
         <div className="section">
             <ComposableMap
@@ -41,14 +46,18 @@ export default function WorldHappiness() {
                             geographies.map(geo => {
                                 const d = data.find(s=> s.country === geo.properties.NAME);
                                 if (!d) {
-                                    debugger;
+                                    console.log(geo.properties.NAME);
                                 }
                                 return (
                                     <Geography
                                         key={geo.rsmKey}
                                         geography={geo}
                                         fill={d ? colorScale(d["score"]) : "white"}
-                                        // fill={colorScale(parseFloat(data["score"]))}
+                                        style={{
+                                            // default: {outline: "none"},
+                                            // hover: {outline: "none"},
+                                            // pressed: {outline: "none"},
+                                        }}
                                     />
                                 );
                             })
