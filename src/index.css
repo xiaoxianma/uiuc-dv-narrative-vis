@@ -19,6 +19,13 @@ h3 {
   font-weight: 700;
 }
 
+h4 {
+  font-size: 5em;
+  text-align: center;
+  color: #fff;
+  font-weight: 300;
+}
+
 a {
   text-decoration: none;
 }
