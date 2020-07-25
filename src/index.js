@@ -6,12 +6,11 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import "./index.css";
 import Title from "./components/Title";
 import WorldHappiness from "./components/WorldHappiness";
-import Slide3 from "./components/Slide3";
 import Introduction from "./components/Introduction";
 
 
 
-const anchors = ["title", "introduction", "thirdPage"];
+const anchors = ["title", "introduction", "world-happiness"];
 
 const FullpageWrapper = () => (
     <ReactFullpage

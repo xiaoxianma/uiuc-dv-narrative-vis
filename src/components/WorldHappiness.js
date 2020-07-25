@@ -7,6 +7,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import dataset from "../data/2019.csv";
 import ReactTooltip from "react-tooltip";
 import Grid from "@material-ui/core/Grid";
+import DataChart from "./DataChart";
+import Button from "@material-ui/core/Button";
+import {cyan} from "@material-ui/core/colors";
 
 const useStyle = makeStyles(theme => ({
     title: {
@@ -20,6 +23,36 @@ const useStyle = makeStyles(theme => ({
     },
     root: {
         flexGrow: 1
+    },
+    chart: {
+        margin: theme.spacing(4)
+    },
+    btnGroup: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+        textAlign: "left",
+    },
+    btn: {
+        backgroundColor: 'white',
+        '&:hover': {
+            backgroundColor: cyan[100]
+        },
+        '&:active': {
+            backgroundColor: cyan[300]
+        }
+    },
+    activeBtn: {
+        backgroundColor: cyan[300],
+        '&:hover': {
+            backgroundColor: cyan[100]
+        },
+        '&:active': {
+            backgroundColor: cyan[300]
+        },
+        '&:focus': {
+            backgroundColor: cyan[300]
+        }
     }
 }));
 const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
@@ -33,12 +66,54 @@ export default function WorldHappiness() {
     const ref = useRef();
     const [data, setData] = useState([]);
     const [tooltipContent, setTooltipContent] = useState("");
+    const [gdpPerCapita, setGdpPerCapita] = useState([]);
+    const [socialSupport, setSocialSupport] = useState([]);
+    const [healthy, setHealthy] = useState([]);
+    const [freedom, setFreedom] = useState([]);
+    const [generosity, setGenerosity] = useState([]);
+    const [perceptions, setPerceptions] = useState([]);
+    const [isGdpActive, setIsGdpActive] = useState(true);
+    const [isSocialActive, setIsSocialActive] = useState(false);
+    const [isHealthyActive, setIsHealthyActive] = useState(false);
+    const [isFreedomActive, setIsFreedomActive] = useState(false);
+    const [isGenerosityActive, setIsGenerosityActive] = useState(false);
+    const [isPerceptionActive, setIsPerceptionActive] = useState(false);
 
     useEffect(() => {
         csv(dataset).then(rows => {
+            const tmpGdp = [];
+            const tmpSocial = [];
+            const tmpHealthy = [];
+            const tmpFreedom = [];
+            const tmpGenerosity = [];
+            const tmpPerceptions = [];
             setData(rows);
+            for (const row of rows) {
+                tmpGdp.push({x: row['gdp-per-capita'], y: row['score']});
+                tmpSocial.push({x: row['social-support'], y: row['score']});
+                tmpHealthy.push({x: row['healthy-life-expectancy'], y: row['score']});
+                tmpFreedom.push({x: row['freedom'], y: row['score']});
+                tmpGenerosity.push({x: row['generosity'], y: row['score']});
+                tmpPerceptions.push({x: row['perceptions-of-corruption'], y: row['score']});
+            }
+            setGdpPerCapita(tmpGdp);
+            setSocialSupport(tmpSocial);
+            setHealthy(tmpHealthy);
+            setFreedom(tmpFreedom);
+            setGenerosity(tmpGenerosity);
+            setPerceptions(tmpPerceptions);
         });
     }, []);
+
+    const handleBtnClick = (event) => {
+        const value = event.currentTarget.id;
+        value === "gdp" ? setIsGdpActive(true) : setIsGdpActive(false);
+        value === "social" ? setIsSocialActive(true) : setIsSocialActive(false);
+        value === "healthy" ? setIsHealthyActive(true) : setIsHealthyActive(false);
+        value === "freedom" ? setIsFreedomActive(true) : setIsFreedomActive(false);
+        value === "generosity" ? setIsGenerosityActive(true) : setIsGenerosityActive(false);
+        value === "perception" ? setIsPerceptionActive(true) : setIsPerceptionActive(false);
+    };
 
     return (
         <div className="section">
@@ -100,8 +175,19 @@ export default function WorldHappiness() {
                         </div>
                         <ReactTooltip>{tooltipContent}</ReactTooltip>
                     </Grid>
-                    {/*<Grid item xs={3}>*/}
-                    {/*</Grid>*/}
+                    <Grid item xs={6}>
+                        <div className={classes.chart}>
+                            <DataChart data={gdpPerCapita}/>
+                        </div>
+                        <div className={classes.btnGroup}>
+                            <Button variant="contained" className={isGdpActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="gdp">GDP Per Capita</Button>
+                            <Button variant="contained" className={isSocialActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="social">Social Support</Button>
+                            <Button variant="contained" className={isHealthyActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="healthy">Healthy</Button>
+                            <Button variant="contained" className={isFreedomActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="freedom">Freedom</Button>
+                            <Button variant="contained" className={isGenerosityActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="generosity">Generosity</Button>
+                            <Button variant="contained" className={isPerceptionActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="perception">Perceptions</Button>
+                        </div>
+                    </Grid>
                 </Grid>
             </div>
         </div>
