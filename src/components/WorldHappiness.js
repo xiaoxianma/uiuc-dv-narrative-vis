@@ -72,6 +72,8 @@ export default function WorldHappiness() {
     const [freedom, setFreedom] = useState([]);
     const [generosity, setGenerosity] = useState([]);
     const [perceptions, setPerceptions] = useState([]);
+    const [charData, setChartData] = useState([]);
+    const [chartXAxis, setChartXAxis] = useState("gdp per capita");
     const [isGdpActive, setIsGdpActive] = useState(true);
     const [isSocialActive, setIsSocialActive] = useState(false);
     const [isHealthyActive, setIsHealthyActive] = useState(false);
@@ -89,12 +91,12 @@ export default function WorldHappiness() {
             const tmpPerceptions = [];
             setData(rows);
             for (const row of rows) {
-                tmpGdp.push({x: row['gdp-per-capita'], y: row['score']});
-                tmpSocial.push({x: row['social-support'], y: row['score']});
-                tmpHealthy.push({x: row['healthy-life-expectancy'], y: row['score']});
-                tmpFreedom.push({x: row['freedom'], y: row['score']});
-                tmpGenerosity.push({x: row['generosity'], y: row['score']});
-                tmpPerceptions.push({x: row['perceptions-of-corruption'], y: row['score']});
+                tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score']});
+                tmpSocial.push({x: row['social-support'] * 2 / 1.63, y: row['score']});
+                tmpHealthy.push({x: row['healthy-life-expectancy'] * 2 / 1.15, y: row['score']});
+                tmpFreedom.push({x: row['freedom'] * 2 / 0.6, y: row['score']});
+                tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score']});
+                tmpPerceptions.push({x: row['perceptions-of-corruption'] * 2 / 0.46, y: row['score']});
             }
             setGdpPerCapita(tmpGdp);
             setSocialSupport(tmpSocial);
@@ -102,19 +104,58 @@ export default function WorldHappiness() {
             setFreedom(tmpFreedom);
             setGenerosity(tmpGenerosity);
             setPerceptions(tmpPerceptions);
+            // initial data
+            setChartData(tmpGdp);
         });
     }, []);
 
     const handleBtnClick = (event) => {
         const value = event.currentTarget.id;
-        value === "gdp" ? setIsGdpActive(true) : setIsGdpActive(false);
-        value === "social" ? setIsSocialActive(true) : setIsSocialActive(false);
-        value === "healthy" ? setIsHealthyActive(true) : setIsHealthyActive(false);
-        value === "freedom" ? setIsFreedomActive(true) : setIsFreedomActive(false);
-        value === "generosity" ? setIsGenerosityActive(true) : setIsGenerosityActive(false);
-        value === "perception" ? setIsPerceptionActive(true) : setIsPerceptionActive(false);
+        if (value === "gdp") {
+            setIsGdpActive(true);
+            setChartData(gdpPerCapita);
+            setChartXAxis("gdp per capita")
+        } else {
+            setIsGdpActive(false);
+        }
+        if (value === "social") {
+            setIsSocialActive(true);
+            setChartData(socialSupport);
+            setChartXAxis("social support")
+        } else {
+            setIsSocialActive(false);
+        }
+        if (value === "healthy") {
+            setIsHealthyActive(true);
+            setChartData(healthy);
+            setChartXAxis("healthy")
+        } else {
+            setIsHealthyActive(false);
+        }
+        if (value === "freedom") {
+            setIsFreedomActive(true);
+            setChartData(freedom);
+            setChartXAxis("freedom")
+        } else {
+            setIsFreedomActive(false);
+        }
+        if (value === "generosity") {
+            setIsGenerosityActive(true);
+            setChartData(generosity);
+            setChartXAxis("generosity")
+        } else {
+            setIsGenerosityActive(false);
+        }
+        if (value === "perception") {
+            setIsPerceptionActive(true);
+            setChartData(perceptions);
+            setChartXAxis("perception")
+        } else {
+            setIsPerceptionActive(false);
+        }
     };
 
+    console.log(charData);
     return (
         <div className="section">
             <div className={classes.root}>
@@ -177,7 +218,7 @@ export default function WorldHappiness() {
                     </Grid>
                     <Grid item xs={6}>
                         <div className={classes.chart}>
-                            <DataChart data={gdpPerCapita}/>
+                            <DataChart chartData={charData} chartXAxis={chartXAxis}/>
                         </div>
                         <div className={classes.btnGroup}>
                             <Button variant="contained" className={isGdpActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="gdp">GDP Per Capita</Button>
