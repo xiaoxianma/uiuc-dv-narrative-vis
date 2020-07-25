@@ -80,6 +80,7 @@ export default function WorldHappiness() {
     const [isFreedomActive, setIsFreedomActive] = useState(false);
     const [isGenerosityActive, setIsGenerosityActive] = useState(false);
     const [isPerceptionActive, setIsPerceptionActive] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState("");
 
     useEffect(() => {
         csv(dataset).then(rows => {
@@ -90,13 +91,14 @@ export default function WorldHappiness() {
             const tmpGenerosity = [];
             const tmpPerceptions = [];
             setData(rows);
+            const size = 5;
             for (const row of rows) {
-                tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score']});
-                tmpSocial.push({x: row['social-support'] * 2 / 1.63, y: row['score']});
-                tmpHealthy.push({x: row['healthy-life-expectancy'] * 2 / 1.15, y: row['score']});
-                tmpFreedom.push({x: row['freedom'] * 2 / 0.6, y: row['score']});
-                tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score']});
-                tmpPerceptions.push({x: row['perceptions-of-corruption'] * 2 / 0.46, y: row['score']});
+                tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score'], size: size, country: row['country']});
+                tmpSocial.push({x: row['social-support'] * 2 / 1.63, y: row['score'], size: size, country: row['country']});
+                tmpHealthy.push({x: row['healthy-life-expectancy'] * 2 / 1.15, y: row['score'], size: size, country: row['country']});
+                tmpFreedom.push({x: row['freedom'] * 2 / 0.6, y: row['score'], size: size, country: row['country']});
+                tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score'], size: size, country: row['country']});
+                tmpPerceptions.push({x: row['perceptions-of-corruption'] * 2 / 0.46, y: row['score'], country: row['country'], size: size});
             }
             setGdpPerCapita(tmpGdp);
             setSocialSupport(tmpSocial);
@@ -108,6 +110,19 @@ export default function WorldHappiness() {
             setChartData(tmpGdp);
         });
     }, []);
+
+    useEffect(() => {
+        const tmpData = [];
+        for (const row of charData) {
+            if (row['country'] === selectedCountry) {
+                row.size = 10;
+            } else {
+                row.size = 5;
+            }
+            tmpData.push(row);
+        }
+        setChartData(tmpData);
+    }, [selectedCountry]);
 
     const handleBtnClick = (event) => {
         const value = event.currentTarget.id;
@@ -183,11 +198,12 @@ export default function WorldHappiness() {
                                                         geography={geo}
                                                         fill={d ? colorScale(d["score"]) : "white"}
                                                         onMouseEnter={() => {
-                                                            console.log(geo.properties.NAME);
                                                             setTooltipContent(`${geo.properties.NAME} - score: ${d ? d["score"] : "N/A"}`)
+                                                            setSelectedCountry(d ? d['country'] : "");
                                                         }}
                                                         onMouseLeave={() => {
                                                             setTooltipContent("");
+                                                            setSelectedCountry("");
                                                         }}
                                                         style={{
                                                             default: {
@@ -218,7 +234,7 @@ export default function WorldHappiness() {
                     </Grid>
                     <Grid item xs={6}>
                         <div className={classes.chart}>
-                            <DataChart chartData={charData} chartXAxis={chartXAxis}/>
+                            <DataChart chartData={charData} chartXAxis={chartXAxis} selectedCountry={setSelectedCountry}/>
                         </div>
                         <div className={classes.btnGroup}>
                             <Button variant="contained" className={isGdpActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="gdp">GDP Per Capita</Button>
