@@ -9,6 +9,11 @@ const useStyle = makeStyles(theme => ({
         fill: 'white',
         fontWeight: 400,
     },
+    countryLabel: {
+        fontSize: 30,
+        stroke: "#eeeeee",
+        fill: '#eeeeee'
+    },
     hint: {
         fontSize: 14,
         value: {
@@ -20,15 +25,41 @@ const useStyle = makeStyles(theme => ({
 
 export default function DataChart(props) {
     const classes = useStyle();
-    const [hoverData, setHoverData] = useState(null);
 
     const handleMounseEnter = (event) => {
-        setHoverData({x: event.x, score: event.y});
+        props.setSelectedCountry(event.country);
+        const tmpData = [];
+        for (const row of props.chartData) {
+            if (row['country'] === event.country) {
+                row.size = 10;
+                row.color = '#ffb74d';
+            } else {
+                row.size = 5;
+                row.color = '#12939A';
+            }
+            tmpData.push(row);
+        }
+        props.setChartData(tmpData);
+        props.setScore(`(${event.y})`);
+        props.setAttr(`- ${event.x.toFixed(2)}`);
     };
 
-    console.log(props.chartData)
+    const handleMouseOut = (event) => {
+        props.setSelectedCountry("");
+        const tmpData = [];
+        for (const row of props.chartData) {
+            row.size = 5;
+            row.color = '#12939A';
+            tmpData.push(row);
+        }
+        props.setChartData(tmpData);
+        props.setScore("");
+        props.setAttr("");
+    };
+
+    console.log(props.selectedCountry);
     return (
-        <XYPlot width={800} height={800} yDomain={[0, 8]} xDomain={[0, 2]} onMouseLeave={() => setHoverData(null)}>
+        <XYPlot width={800} height={800} yDomain={[0, 8]} xDomain={[0, 2]}>
             <VerticalGridLines/>
             <HorizontalGridLines/>
             <XAxis style={{
@@ -41,10 +72,11 @@ export default function DataChart(props) {
                 ticks: {stroke: 'white'},
                 text: {stroke: 'none', fill: 'white', fontWeight: 400},
             }}/>
-            <ChartLabel text={props.chartXAxis} xPercent={0.85} yPercent={0.875} className={classes.chartLabel}/>
-            <ChartLabel text="Happiness Score" xPercent={0.09} yPercent={0.1} className={classes.chartLabel} style={{transform: 'rotate(-90)'}}/>
-            <MarkSeries data={props.chartData} sizeType="literal" onValueMouseOver={handleMounseEnter}/>
-            {/*{hoverData && <Hint value={hoverData} align={{horizontal: 'left', vertical: 'bottom'}} className={classes.hint}/>}*/}
+            <ChartLabel text={`${props.chartXAxis} ${props.attr}`} xPercent={0.8} yPercent={0.875} className={classes.chartLabel}/>
+            <ChartLabel text="Happiness Score" xPercent={0.07} className={classes.chartLabel} />
+            <ChartLabel text={props.score} xPercent={0.1} yPercent={0.03} className={classes.chartLabel} />
+            <ChartLabel text={props.selectedCountry} xPercent={0.1} yPercent={0.85} className={classes.countryLabel}/>
+            <MarkSeries data={props.chartData} sizeType="literal" colorType="literal" onValueMouseOver={handleMounseEnter} onValueMouseOut={handleMouseOut}/>
         </XYPlot>
     )
 }

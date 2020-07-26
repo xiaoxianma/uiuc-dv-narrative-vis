@@ -64,6 +64,8 @@ const colorScale = d3.scaleLinear()
 export default function WorldHappiness() {
     const classes = useStyle();
     const ref = useRef();
+    const [score, setScore] = useState("");
+    const [attr, setAttr] = useState("");
     const [data, setData] = useState([]);
     const [tooltipContent, setTooltipContent] = useState("");
     const [gdpPerCapita, setGdpPerCapita] = useState([]);
@@ -92,13 +94,14 @@ export default function WorldHappiness() {
             const tmpPerceptions = [];
             setData(rows);
             const size = 5;
+            const color = '#12939A';
             for (const row of rows) {
-                tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score'], size: size, country: row['country']});
-                tmpSocial.push({x: row['social-support'] * 2 / 1.63, y: row['score'], size: size, country: row['country']});
-                tmpHealthy.push({x: row['healthy-life-expectancy'] * 2 / 1.15, y: row['score'], size: size, country: row['country']});
-                tmpFreedom.push({x: row['freedom'] * 2 / 0.6, y: row['score'], size: size, country: row['country']});
-                tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score'], size: size, country: row['country']});
-                tmpPerceptions.push({x: row['perceptions-of-corruption'] * 2 / 0.46, y: row['score'], country: row['country'], size: size});
+                tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score'], country: row['country'], size, color});
+                tmpSocial.push({x: row['social-support'] * 2 / 1.63, y: row['score'], country: row['country'], size, color});
+                tmpHealthy.push({x: row['healthy-life-expectancy'] * 2 / 1.15, y: row['score'], country: row['country'], size, color});
+                tmpFreedom.push({x: row['freedom'] * 2 / 0.6, y: row['score'], country: row['country'], size, color});
+                tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score'], country: row['country'], size, color});
+                tmpPerceptions.push({x: row['perceptions-of-corruption'] * 2 / 0.46, y: row['score'], country: row['country'], size, color});
             }
             setGdpPerCapita(tmpGdp);
             setSocialSupport(tmpSocial);
@@ -116,8 +119,12 @@ export default function WorldHappiness() {
         for (const row of charData) {
             if (row['country'] === selectedCountry) {
                 row.size = 10;
+                row.color = '#ffb74d';
+                setScore(`(${row.y})`);
+                setAttr(`- ${row.x.toFixed(2)}`);
             } else {
                 row.size = 5;
+                row.color = '#12939A';
             }
             tmpData.push(row);
         }
@@ -204,6 +211,8 @@ export default function WorldHappiness() {
                                                         onMouseLeave={() => {
                                                             setTooltipContent("");
                                                             setSelectedCountry("");
+                                                            setAttr("");
+                                                            setScore("");
                                                         }}
                                                         style={{
                                                             default: {
@@ -234,7 +243,7 @@ export default function WorldHappiness() {
                     </Grid>
                     <Grid item xs={6}>
                         <div className={classes.chart}>
-                            <DataChart chartData={charData} chartXAxis={chartXAxis} selectedCountry={setSelectedCountry}/>
+                            <DataChart attr={attr} score={score} setScore={setScore} setAttr={setAttr} chartData={charData} setChartData={setChartData} chartXAxis={chartXAxis} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry}/>
                         </div>
                         <div className={classes.btnGroup}>
                             <Button variant="contained" className={isGdpActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="gdp">GDP Per Capita</Button>
