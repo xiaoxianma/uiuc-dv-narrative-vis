@@ -1,6 +1,17 @@
 import React, {useState} from "react";
-import {ChartLabel, Hint, HorizontalGridLines, MarkSeries, VerticalGridLines, XAxis, XYPlot, YAxis} from "react-vis";
+import {
+    ChartLabel,
+    Hint,
+    HorizontalGridLines,
+    LineSeries,
+    MarkSeries,
+    VerticalGridLines,
+    XAxis,
+    XYPlot,
+    YAxis
+} from "react-vis";
 import {makeStyles} from "@material-ui/core/styles";
+import {Line} from "react-simple-maps";
 
 
 const useStyle = makeStyles(theme => ({
@@ -76,7 +87,8 @@ export default function DataChart(props) {
             <ChartLabel text="Happiness Score" xPercent={0.07} className={classes.chartLabel} />
             <ChartLabel text={props.score} xPercent={0.1} yPercent={0.03} className={classes.chartLabel} />
             <ChartLabel text={props.selectedCountry} xPercent={0.1} yPercent={0.85} className={classes.countryLabel}/>
-            <MarkSeries data={props.chartData} sizeType="literal" colorType="literal" onValueMouseOver={handleMounseEnter} onValueMouseOut={handleMouseOut}/>
+            <LineSeries animation data={props.lineData} strokeWidth={8} color='#bcaaa4'/>
+            <MarkSeries animation data={props.chartData} sizeType="literal" colorType="literal" onValueMouseOver={handleMounseEnter} onValueMouseOut={handleMouseOut}/>
         </XYPlot>
     )
 }

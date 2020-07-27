@@ -63,7 +63,6 @@ const colorScale = d3.scaleLinear()
 
 export default function WorldHappiness() {
     const classes = useStyle();
-    const ref = useRef();
     const [score, setScore] = useState("");
     const [attr, setAttr] = useState("");
     const [data, setData] = useState([]);
@@ -75,6 +74,7 @@ export default function WorldHappiness() {
     const [generosity, setGenerosity] = useState([]);
     const [perceptions, setPerceptions] = useState([]);
     const [charData, setChartData] = useState([]);
+    const [lineData, setLineData] = useState([]);
     const [chartXAxis, setChartXAxis] = useState("gdp per capita");
     const [isGdpActive, setIsGdpActive] = useState(true);
     const [isSocialActive, setIsSocialActive] = useState(false);
@@ -111,6 +111,7 @@ export default function WorldHappiness() {
             setPerceptions(tmpPerceptions);
             // initial data
             setChartData(tmpGdp);
+            setLineData([{x: 0.05, y: 3.5}, {x: 2, y: 6.6}])
         });
     }, []);
 
@@ -136,42 +137,48 @@ export default function WorldHappiness() {
         if (value === "gdp") {
             setIsGdpActive(true);
             setChartData(gdpPerCapita);
-            setChartXAxis("gdp per capita")
+            setChartXAxis("gdp per capita");
+            setLineData([{x: 0.05, y: 3.5}, {x: 2, y: 6.6}]);
         } else {
             setIsGdpActive(false);
         }
         if (value === "social") {
             setIsSocialActive(true);
             setChartData(socialSupport);
-            setChartXAxis("social support")
+            setChartXAxis("social support");
+            setLineData([{x: 0.05, y: 3.0}, {x: 2, y: 6.0}]);
         } else {
             setIsSocialActive(false);
         }
         if (value === "healthy") {
             setIsHealthyActive(true);
             setChartData(healthy);
-            setChartXAxis("healthy")
+            setChartXAxis("healthy");
+            setLineData([{x: 0.05, y: 2.7}, {x: 2, y: 6.5}]);
         } else {
             setIsHealthyActive(false);
         }
         if (value === "freedom") {
             setIsFreedomActive(true);
             setChartData(freedom);
-            setChartXAxis("freedom")
+            setChartXAxis("freedom");
+            setLineData([{x: 0.05, y: 3.3}, {x: 2, y: 6.0}]);
         } else {
             setIsFreedomActive(false);
         }
         if (value === "generosity") {
             setIsGenerosityActive(true);
             setChartData(generosity);
-            setChartXAxis("generosity")
+            setChartXAxis("generosity");
+            setLineData([{x: 0.05, y: 4.5}, {x: 2, y: 6.5}]);
         } else {
             setIsGenerosityActive(false);
         }
         if (value === "perception") {
             setIsPerceptionActive(true);
             setChartData(perceptions);
-            setChartXAxis("perception")
+            setChartXAxis("perception");
+            setLineData([{x: 0.05, y: 4.5}, {x: 2, y: 7.0}]);
         } else {
             setIsPerceptionActive(false);
         }
@@ -243,7 +250,18 @@ export default function WorldHappiness() {
                     </Grid>
                     <Grid item xs={6}>
                         <div className={classes.chart}>
-                            <DataChart attr={attr} score={score} setScore={setScore} setAttr={setAttr} chartData={charData} setChartData={setChartData} chartXAxis={chartXAxis} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry}/>
+                            <DataChart
+                                attr={attr}
+                                score={score}
+                                setScore={setScore}
+                                setAttr={setAttr}
+                                lineData={lineData}
+                                chartData={charData}
+                                setChartData={setChartData}
+                                chartXAxis={chartXAxis}
+                                selectedCountry={selectedCountry}
+                                setSelectedCountry={setSelectedCountry}
+                            />
                         </div>
                         <div className={classes.btnGroup}>
                             <Button variant="contained" className={isGdpActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="gdp">GDP Per Capita</Button>
