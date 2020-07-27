@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     ChartLabel,
-    Hint,
     HorizontalGridLines,
     LineSeries,
     MarkSeries,
@@ -11,7 +10,6 @@ import {
     YAxis
 } from "react-vis";
 import {makeStyles} from "@material-ui/core/styles";
-import {Line} from "react-simple-maps";
 
 
 const useStyle = makeStyles(theme => ({
@@ -55,7 +53,7 @@ export default function DataChart(props) {
         props.setAttr(`- ${event.x.toFixed(2)}`);
     };
 
-    const handleMouseOut = (event) => {
+    const handleMouseOut = (datapoint, event) => {
         props.setSelectedCountry("");
         const tmpData = [];
         for (const row of props.chartData) {
@@ -68,7 +66,6 @@ export default function DataChart(props) {
         props.setAttr("");
     };
 
-    console.log(props.selectedCountry);
     return (
         <XYPlot width={800} height={800} yDomain={[0, 8]} xDomain={[0, 2]}>
             <VerticalGridLines/>
@@ -87,8 +84,8 @@ export default function DataChart(props) {
             <ChartLabel text="Happiness Score" xPercent={0.07} className={classes.chartLabel} />
             <ChartLabel text={props.score} xPercent={0.1} yPercent={0.03} className={classes.chartLabel} />
             <ChartLabel text={props.selectedCountry} xPercent={0.1} yPercent={0.85} className={classes.countryLabel}/>
-            <LineSeries animation data={props.lineData} strokeWidth={8} color='#bcaaa4'/>
-            <MarkSeries animation data={props.chartData} sizeType="literal" colorType="literal" onValueMouseOver={handleMounseEnter} onValueMouseOut={handleMouseOut}/>
+            <LineSeries animation opacity={0.8} data={props.lineData} strokeWidth={8} color='#bcaaa4'/>
+            <MarkSeries data={props.chartData} sizeType="literal" colorType="literal" onValueMouseOver={handleMounseEnter} onValueMouseOut={handleMouseOut}/>
         </XYPlot>
     )
 }

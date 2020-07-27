@@ -99,7 +99,7 @@ export default function WorldHappiness() {
                 tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score'], country: row['country'], size, color});
                 tmpSocial.push({x: row['social-support'] * 2 / 1.63, y: row['score'], country: row['country'], size, color});
                 tmpHealthy.push({x: row['healthy-life-expectancy'] * 2 / 1.15, y: row['score'], country: row['country'], size, color});
-                tmpFreedom.push({x: row['freedom'] * 2 / 0.6, y: row['score'], country: row['country'], size, color});
+                tmpFreedom.push({x: row['freedom'] * 2 / 0.61, y: row['score'], country: row['country'], size, color});
                 tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score'], country: row['country'], size, color});
                 tmpPerceptions.push({x: row['perceptions-of-corruption'] * 2 / 0.46, y: row['score'], country: row['country'], size, color});
             }
@@ -184,7 +184,6 @@ export default function WorldHappiness() {
         }
     };
 
-    console.log(charData);
     return (
         <div className="section">
             <div className={classes.root}>
