@@ -9,6 +9,7 @@ import {
     XYPlot,
     YAxis
 } from "react-vis";
+import {Annotation, ConnectorLine, Note} from "react-annotation";
 import {makeStyles} from "@material-ui/core/styles";
 
 
@@ -80,9 +81,10 @@ export default function DataChart(props) {
                 ticks: {stroke: 'white'},
                 text: {stroke: 'none', fill: 'white', fontWeight: 400},
             }}/>
-            <ChartLabel text={`${props.chartXAxis} ${props.attr}`} xPercent={0.8} yPercent={0.875} className={classes.chartLabel}/>
-            <ChartLabel text="Happiness Score" xPercent={0.07} className={classes.chartLabel} />
-            <ChartLabel text={props.score} xPercent={0.1} yPercent={0.03} className={classes.chartLabel} />
+            <ChartLabel text={`${props.chartXAxis} ${props.attr}`} xPercent={0.8} yPercent={0.875}
+                        className={classes.chartLabel}/>
+            <ChartLabel text="Happiness Score" xPercent={0.07} className={classes.chartLabel}/>
+            <ChartLabel text={props.score} xPercent={0.1} yPercent={0.03} className={classes.chartLabel}/>
             <ChartLabel text={props.selectedCountry} xPercent={0.1} yPercent={0.85} className={classes.countryLabel}/>
             <LineSeries animation opacity={0.8} data={props.lineData} strokeWidth={8} color='#bcaaa4'/>
             <MarkSeries data={props.chartData} sizeType="literal" colorType="literal" onValueMouseOver={handleMounseEnter} onValueMouseOut={handleMouseOut}/>

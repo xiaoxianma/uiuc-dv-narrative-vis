@@ -1,10 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as d3 from "d3";
-import {csv} from "d3-fetch";
 import {ComposableMap, Geographies, Geography, Graticule, Sphere, ZoomableGroup} from "react-simple-maps";
 import {Colorscale} from "react-colorscales";
 import {makeStyles} from "@material-ui/core/styles";
-import dataset from "../data/2019.csv";
 import ReactTooltip from "react-tooltip";
 import Grid from "@material-ui/core/Grid";
 import DataChart from "./DataChart";
@@ -61,11 +59,10 @@ const colorScale = d3.scaleLinear()
     .domain([2.6, 3.8, 4.8, 5.8, 6.8, 7.8])
     .range(colorRange);
 
-export default function WorldHappiness() {
+export default function WorldHappiness(props) {
     const classes = useStyle();
     const [score, setScore] = useState("");
     const [attr, setAttr] = useState("");
-    const [data, setData] = useState([]);
     const [tooltipContent, setTooltipContent] = useState("");
     const [gdpPerCapita, setGdpPerCapita] = useState([]);
     const [socialSupport, setSocialSupport] = useState([]);
@@ -85,35 +82,50 @@ export default function WorldHappiness() {
     const [selectedCountry, setSelectedCountry] = useState("");
 
     useEffect(() => {
-        csv(dataset).then(rows => {
-            const tmpGdp = [];
-            const tmpSocial = [];
-            const tmpHealthy = [];
-            const tmpFreedom = [];
-            const tmpGenerosity = [];
-            const tmpPerceptions = [];
-            setData(rows);
-            const size = 5;
-            const color = '#12939A';
-            for (const row of rows) {
-                tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score'], country: row['country'], size, color});
-                tmpSocial.push({x: row['social-support'] * 2 / 1.63, y: row['score'], country: row['country'], size, color});
-                tmpHealthy.push({x: row['healthy-life-expectancy'] * 2 / 1.15, y: row['score'], country: row['country'], size, color});
-                tmpFreedom.push({x: row['freedom'] * 2 / 0.61, y: row['score'], country: row['country'], size, color});
-                tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score'], country: row['country'], size, color});
-                tmpPerceptions.push({x: row['perceptions-of-corruption'] * 2 / 0.46, y: row['score'], country: row['country'], size, color});
-            }
-            setGdpPerCapita(tmpGdp);
-            setSocialSupport(tmpSocial);
-            setHealthy(tmpHealthy);
-            setFreedom(tmpFreedom);
-            setGenerosity(tmpGenerosity);
-            setPerceptions(tmpPerceptions);
-            // initial data
-            setChartData(tmpGdp);
-            setLineData([{x: 0.05, y: 3.5}, {x: 2, y: 6.6}])
-        });
-    }, []);
+        const tmpGdp = [];
+        const tmpSocial = [];
+        const tmpHealthy = [];
+        const tmpFreedom = [];
+        const tmpGenerosity = [];
+        const tmpPerceptions = [];
+        const size = 5;
+        const color = '#12939A';
+        for (const row of props.reportData) {
+            tmpGdp.push({x: row['gdp-per-capita'] * 2 / 1.69, y: row['score'], country: row['country'], size, color});
+            tmpSocial.push({
+                x: row['social-support'] * 2 / 1.63,
+                y: row['score'],
+                country: row['country'],
+                size,
+                color
+            });
+            tmpHealthy.push({
+                x: row['healthy-life-expectancy'] * 2 / 1.15,
+                y: row['score'],
+                country: row['country'],
+                size,
+                color
+            });
+            tmpFreedom.push({x: row['freedom'] * 2 / 0.61, y: row['score'], country: row['country'], size, color});
+            tmpGenerosity.push({x: row['generosity'] * 2 / 0.6, y: row['score'], country: row['country'], size, color});
+            tmpPerceptions.push({
+                x: row['perceptions-of-corruption'] * 2 / 0.46,
+                y: row['score'],
+                country: row['country'],
+                size,
+                color
+            });
+        }
+        setGdpPerCapita(tmpGdp);
+        setSocialSupport(tmpSocial);
+        setHealthy(tmpHealthy);
+        setFreedom(tmpFreedom);
+        setGenerosity(tmpGenerosity);
+        setPerceptions(tmpPerceptions);
+        // initial data
+        setChartData(tmpGdp);
+        setLineData([{x: 0.05, y: 3.5}, {x: 2, y: 6.6}])
+    }, [props.reportData]);
 
     useEffect(() => {
         const tmpData = [];
@@ -200,11 +212,11 @@ export default function WorldHappiness() {
                             <ZoomableGroup>
                                 <Sphere stroke="#E4E5E6" strokeWidth={0.2}/>
                                 <Graticule stroke="#E4E5E6" strokeWidth={0.2}/>
-                                {data.length === 156 && (
+                                {props.reportData.length === 156 && (
                                     <Geographies geography={geoUrl}>
                                         {({geographies}) =>
                                             geographies.map(geo => {
-                                                const d = data.find(s => s.country === geo.properties.NAME);
+                                                const d = props.reportData.find(s => s.country === geo.properties.NAME);
                                                 return (
                                                     <Geography
                                                         key={geo.rsmKey}
@@ -263,12 +275,18 @@ export default function WorldHappiness() {
                             />
                         </div>
                         <div className={classes.btnGroup}>
-                            <Button variant="contained" className={isGdpActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="gdp">GDP Per Capita</Button>
-                            <Button variant="contained" className={isSocialActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="social">Social Support</Button>
-                            <Button variant="contained" className={isHealthyActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="healthy">Healthy</Button>
-                            <Button variant="contained" className={isFreedomActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="freedom">Freedom</Button>
-                            <Button variant="contained" className={isGenerosityActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="generosity">Generosity</Button>
-                            <Button variant="contained" className={isPerceptionActive ? classes.activeBtn : classes.btn} onClick={handleBtnClick} id="perception">Perceptions</Button>
+                            <Button variant="contained" className={isGdpActive ? classes.activeBtn : classes.btn}
+                                    onClick={handleBtnClick} id="gdp">GDP Per Capita</Button>
+                            <Button variant="contained" className={isSocialActive ? classes.activeBtn : classes.btn}
+                                    onClick={handleBtnClick} id="social">Social Support</Button>
+                            <Button variant="contained" className={isHealthyActive ? classes.activeBtn : classes.btn}
+                                    onClick={handleBtnClick} id="healthy">Healthy</Button>
+                            <Button variant="contained" className={isFreedomActive ? classes.activeBtn : classes.btn}
+                                    onClick={handleBtnClick} id="freedom">Freedom</Button>
+                            <Button variant="contained" className={isGenerosityActive ? classes.activeBtn : classes.btn}
+                                    onClick={handleBtnClick} id="generosity">Generosity</Button>
+                            <Button variant="contained" className={isPerceptionActive ? classes.activeBtn : classes.btn}
+                                    onClick={handleBtnClick} id="perception">Perceptions</Button>
                         </div>
                     </Grid>
                 </Grid>
