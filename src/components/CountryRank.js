@@ -1,41 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from "@material-ui/core/styles";
-import {Hint, HorizontalBarSeries, HorizontalGridLines, VerticalGridLines, XAxis, XYPlot, YAxis} from "react-vis";
+import {Bar, BarChart, Legend, Tooltip, XAxis, YAxis} from "recharts";
+import {AnnotationLabel} from "react-annotation";
+import * as d3 from "d3";
 
-
-const rankMapping = {
-    1: 'Finland',
-    2: 'Denmark',
-    3: 'Norway',
-    4: 'Iceland',
-    5: 'Netherlands',
-    6: 'Switzerland',
-    7: 'Sweden',
-    8: 'New Zealand',
-    9: 'Canada',
-    10: 'Austria',
-    11: 'Australia',
-    12: 'Costa Rica',
-    13: 'Israel',
-    14: 'Luxembourg',
-    15: 'United Kingdom',
-    16: 'Ireland',
-    17: 'Germany',
-    18: 'Belgium',
-    19: 'United States of America',
-    20: 'Czechia',
-    21: 'United Arab Emirates',
-    22: 'Malta',
-    23: 'Mexico',
-    24: 'France',
-    25: 'Taiwan',
-    26: 'Chile',
-    27: 'Guatemala',
-    28: 'Saudi Arabia',
-    29: 'Qatar',
-    30: 'Spain',
-}
 
 const useStyle = makeStyles(theme => ({
     plot: {
@@ -45,57 +14,82 @@ const useStyle = makeStyles(theme => ({
 
 export default function CountryRank(props) {
     const classes = useStyle();
-    const [gdpPerCapita, setGdpPerCapita] = useState([]);
-    const [socialSupport, setSocialSupport] = useState([]);
-    const [healthy, setHealthy] = useState([]);
-    const [freedom, setFreedom] = useState([]);
-    const [generosity, setGenerosity] = useState([]);
-    const [perceptions, setPerceptions] = useState([]);
+    const ref = useRef();
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        const tmpGdp = [];
-        const tmpSocial = [];
-        const tmpHealthy = [];
-        const tmpFreedom = [];
-        const tmpGenerosity = [];
-        const tmpPerceptions = [];
-        for (const row of props.reportData.slice(0, 30)) {
-            tmpGdp.push({x: parseFloat(row['gdp-per-capita']), y: parseInt(row['rank']), country: row['country']});
-            tmpSocial.push({x: parseFloat(row['social-support']), y: parseInt(row['rank']), country: row['country']});
-            tmpHealthy.push({x: parseFloat(row['healthy-life-expectancy']), y: parseInt(row['rank']), country: row['country']});
-            tmpFreedom.push({x: parseFloat(row['freedom']), y: parseInt(row['rank']), country: row['country']});
-            tmpGenerosity.push({x: parseFloat(row['generosity']), y: parseInt(row['rank']), country: row['country']});
-            tmpPerceptions.push({x: parseFloat(row['perceptions-of-corruption']), y: parseInt(row['rank']), country: row['country']});
+        const tmpData = [];
+        for (const row of props.reportData.slice(0, 20)) {
+            tmpData.push({
+                name: row['country'],
+                gdp: parseFloat(row['gdp-per-capita']),
+                social: row['social-support'],
+                health: row['healthy-life-expectancy'],
+                freedom: row['freedom'],
+                generosity: row['generosity'],
+                perceptions: row['perceptions-of-corruption']
+            });
         }
-        setGdpPerCapita(tmpGdp);
-        setSocialSupport(tmpSocial);
-        setHealthy(tmpHealthy);
-        setFreedom(tmpFreedom);
-        setGenerosity(tmpGenerosity);
-        setPerceptions(tmpPerceptions);
+        setData(tmpData);
     }, [props.reportData]);
+
+    useEffect(() => {
+        const svgElement = d3.select(ref.current);
+        svgElement.append("circle")
+            .attr("cx", 150)
+            .attr("cy", 70)
+            .attr("r", 50)
+    }, [])
+
+    const legendFormatter = (value, entry) => {
+        const {color} = entry;
+        return <span style={{color}}>{value}</span>
+    };
 
     return (
         <div className="section">
             <Grid container>
-                <Grid item xs={4}/>
-                <Grid item xs={4}>
-                    <XYPlot width={1000} height={800} stackBy="x" className={classes.plot}>
-                        <VerticalGridLines/>
-                        <HorizontalGridLines/>
-                        <HorizontalBarSeries data={gdpPerCapita}/>
-                        <HorizontalBarSeries data={socialSupport}/>
-                        <HorizontalBarSeries data={healthy}/>
-                        <HorizontalBarSeries data={freedom}/>
-                        <HorizontalBarSeries data={generosity}/>
-                        <HorizontalBarSeries data={perceptions}/>
-                        <YAxis left={100}
-                               tickFormat={(t, i) => <tspan>{rankMapping[t]}</tspan>}
-                        />
-                    </XYPlot>
+                <Grid item xs={2}/>
+                <Grid item xs={8}>
+                    <h4>Top 20 Happiest Countries</h4>
+                    <BarChart layout="horizontal" width={1600} height={800} data={data}
+                              margin={{top: 20, right: 30, left: 20, bottom: 100}}>
+                        <XAxis dataKey="name" type="category" interval={0} angle={-30}
+                               tick={{fill: 'white', fontSize: 16, dy: 35, dx: -10}}/>
+                        <YAxis/>
+                        <Tooltip/>
+                        <Legend verticalAlign="top" formatter={legendFormatter}/>
+                        <Bar dataKey="gdp" stackId="a" fill="#8884d8" animationBegin={100} animationDuration={2000}/>
+                        <Bar dataKey="social" stackId="a" fill="#f06292" animationBegin={100} animationDuration={2000}/>
+                        <Bar dataKey="health" stackId="a" fill="#ba68c8" animationBegin={100} animationDuration={2000}/>
+                        <Bar dataKey="freedom" stackId="a" fill="#4dd0e1" animationBegin={100}
+                             animationDuration={2000}/>
+                        <Bar dataKey="generosity" stackId="a" fill="#ffd54f" animationBegin={100}
+                             animationDuration={2000}/>
+                        <Bar dataKey="perceptions" stackId="a" fill="#81c784" animationBegin={100}
+                             animationDuration={2000}/>
+                        <svg width={1600} height={800}>
+                            <AnnotationLabel
+                                x={938}
+                                y={320}
+                                dy={-100}
+                                dx={100}
+                                color={"#ff8a65"}
+                                note={{
+                                    "label": "Costa Rica tops the happiness index despite low gdp",
+                                    "align": "left",
+                                    "orientation": "topBottom",
+                                    "bgPadding": 10,
+                                    "padding": 15,
+                                    "titleColor": "#ffe0b2"
+                                }}
+                            />
+                        </svg>
+                    </BarChart>
                 </Grid>
-                <Grid item xs={4}/>
+                <Grid item xs={2}/>
             </Grid>
+
         </div>
     );
 }
