@@ -20,3 +20,5 @@ This project is about to present the narrative visualization of the world happin
 1. [World Happiness Report 2019](https://worldhappiness.report/ed/2020/)
 2. [World Happiness Dataset 2019](https://kaggle.com/roshansharma/world-happiness-report)
 
+### To deploy
+`npm run deploy`
