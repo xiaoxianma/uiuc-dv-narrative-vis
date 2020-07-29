@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from "@material-ui/core/styles";
 import {Bar, BarChart, Legend, Tooltip, XAxis, YAxis} from "recharts";
-import {AnnotationLabel} from "react-annotation";
+import {AnnotationLabel, AnnotationCalloutRect} from "react-annotation";
 import * as d3 from "d3";
 
 
@@ -83,6 +83,20 @@ export default function CountryRank(props) {
                                     "padding": 15,
                                     "titleColor": "#ffe0b2"
                                 }}
+                            />
+
+                            <AnnotationCalloutRect
+                                x={350}
+                                y={370}
+                                dy={-120}
+                                dx={-120}
+                                color={"white"}
+                                note={{
+                                    "label":"GDP, Social Support and Healthy life expectancy are the three biggest factors",
+                                    "lineType":"horizontal",
+                                    "padding": 10,
+                                }}
+                                subject={{"width":400,"height":290}}
                             />
                         </svg>
                     </BarChart>

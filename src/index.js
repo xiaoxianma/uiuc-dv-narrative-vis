@@ -7,14 +7,14 @@ import "./index.css";
 import Main from "./components/Main";
 
 
-const anchors = ["title", "introduction", "country-rank", "world-happiness", "resources"];
+const anchors = ["title", "introduction", "world-happiness", "country-rank", "region", "resources"];
 
 const FullpageWrapper = () => (
     <ReactFullpage
         navigation
         anchors={anchors}
         navigationTooltips={anchors}
-        sectionsColor={["#282c34", "#282c34", "#282c34", "#282c34", "#282c34"]}
+        sectionsColor={["#282c34", "#282c34", "#282c34", "#282c34", "#282c34", "#282c34"]}
         onLeave={(origin, destination, direction) => {
             console.log("onLeave event", { origin, destination, direction });
         }}
