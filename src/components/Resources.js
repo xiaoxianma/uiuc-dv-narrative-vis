@@ -22,6 +22,7 @@ export default function Introduction() {
                 <Grid item xs={2}/>
                 <Grid item xs={8}>
                     <h4>Resources</h4>
+                    <div className={classes.content}><a className={classes.link} href="https://github.com/xiaoxianma/uiuc-dv-narrative-vis">Source Code</a></div>
                     <div className={classes.content}><a className={classes.link} href="https://worldhappiness.report/ed/2020/">World Happiness Report 2019</a></div>
                     <div className={classes.content}><a className={classes.link} href="https://kaggle.com/roshansharma/world-happiness-report">Kaggle Dataset 2019</a></div>
                     <div className={classes.content}><a className={classes.link} href="https://github.com/alvarotrigo/fullPage.js">Fullpage.js for slide show</a></div>

@@ -39,8 +39,8 @@ export default function Main() {
             <Title/>
             <Introduction/>
             <WorldHappiness reportData={reportData}/>
-            <CountryRank reportData={reportData}/>
             <Region data={reportRegionData}/>
+            <CountryRank reportData={reportData}/>
             <Resources/>
         </div>
     );

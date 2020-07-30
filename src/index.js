@@ -7,7 +7,7 @@ import "./index.css";
 import Main from "./components/Main";
 
 
-const anchors = ["title", "introduction", "world-happiness", "country-rank", "region", "resources"];
+const anchors = ["title", "introduction", "world-happiness", "region", "country-rank", "resources"];
 
 const FullpageWrapper = () => (
     <ReactFullpage

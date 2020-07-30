@@ -5,6 +5,11 @@ import {Bar, BarChart, Label, LabelList, Tooltip, XAxis, YAxis} from "recharts";
 
 
 const useStyle = makeStyles(theme => ({
+    description: {
+        marginTop: theme.spacing(3),
+        textAlign: "left",
+        fontSize: 16,
+    }
 }));
 
 export default function Region(props) {
@@ -26,6 +31,8 @@ export default function Region(props) {
                             <LabelList dataKey="name" position="top" fill="#00e676"/>
                         </Bar>
                     </BarChart>
+                    <p className={classes.description}>"Australia and New Zealand" and "North America" are outstanding among the world, and they are the only regions the score is above 7.0.
+                    Asia and Africa are the low happiness regions, however Eastern Asia is a special region, which ranks the 4th happiness region.</p>
                 </Grid>
                 <Grid item xs={3}/>
             </Grid>
