@@ -9,6 +9,11 @@ import * as d3 from "d3";
 const useStyle = makeStyles(theme => ({
     plot: {
         leftMargin: theme.spacing(10)
+    },
+    description: {
+        marginTop: theme.spacing(3),
+        textAlign: "left",
+        fontSize: 16,
     }
 }));
 
@@ -100,6 +105,8 @@ export default function CountryRank(props) {
                             />
                         </svg>
                     </BarChart>
+                    <p className={classes.description}>From this chart, we can see three factor gdp, social support, and healthy life expectancy are way more important than the others. General speaking,
+                    strong economy will make a country happy. But it is always true. For example, the economy of Costa Rica is out of top 50 in the world. However, it ranks the 12th happiest country.</p>
                 </Grid>
                 <Grid item xs={2}/>
             </Grid>
