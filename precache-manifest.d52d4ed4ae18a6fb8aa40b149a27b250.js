@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "61e8a0a5c4d468916aa4d11205d0d7ad",
+    "revision": "2a3568e5865f53bbfc608672be6342d5",
     "url": "/uiuc-dv-narrative-vis/index.html"
   },
   {
-    "revision": "fa36fad5266328d5cc61",
-    "url": "/uiuc-dv-narrative-vis/static/css/main.694a162d.chunk.css"
+    "revision": "ccb0f880853d3caa4eea",
+    "url": "/uiuc-dv-narrative-vis/static/css/main.6748d47e.chunk.css"
   },
   {
     "revision": "2786c4a81ec95e526860",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/uiuc-dv-narrative-vis/static/js/2.f11e2b63.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fa36fad5266328d5cc61",
-    "url": "/uiuc-dv-narrative-vis/static/js/main.9822bc82.chunk.js"
+    "revision": "ccb0f880853d3caa4eea",
+    "url": "/uiuc-dv-narrative-vis/static/js/main.cf3de2ff.chunk.js"
   },
   {
     "revision": "6b08784aea0579e1b33b",
