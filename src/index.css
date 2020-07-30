@@ -30,10 +30,6 @@ p {
   color: #fff;
 }
 
-#section1 {
-  color: #fff;
-}
-
 .fp-section {
   text-align: center;
 }
@@ -45,5 +41,5 @@ button {
 }
 
 #fp-nav ul li a span, .fp-slidesNav ul {
-  background: white;
+  background: #ffffff!important;
 }
