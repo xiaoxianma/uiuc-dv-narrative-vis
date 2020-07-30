@@ -86,7 +86,7 @@ export default function DataChart(props) {
             <ChartLabel text="Happiness Score" xPercent={0.07} className={classes.chartLabel}/>
             <ChartLabel text={props.score} xPercent={0.1} yPercent={0.03} className={classes.chartLabel}/>
             <ChartLabel text={props.selectedCountry} xPercent={0.1} yPercent={0.85} className={classes.countryLabel}/>
-            <LineSeries animation opacity={0.8} data={props.lineData} strokeWidth={8} color='#bcaaa4'/>
+            <LineSeries animation={{damping: 10, stiffness:20}} opacity={0.8} data={props.lineData} strokeWidth={8} color='#bcaaa4'/>
             <MarkSeries data={props.chartData} sizeType="literal" colorType="literal" onValueMouseOver={handleMounseEnter} onValueMouseOut={handleMouseOut}/>
         </XYPlot>
     )
