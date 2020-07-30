@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/uiuc-dv-narrative-vis/static/css/main.a54d8893.chunk.css",
+    "main.css": "/uiuc-dv-narrative-vis/static/css/main.935b60a8.chunk.css",
     "main.js": "/uiuc-dv-narrative-vis/static/js/main.baf48e21.chunk.js",
     "main.js.map": "/uiuc-dv-narrative-vis/static/js/main.baf48e21.chunk.js.map",
     "runtime-main.js": "/uiuc-dv-narrative-vis/static/js/runtime-main.4bc5ce6b.js",
@@ -8,9 +8,9 @@
     "static/js/2.24512cba.chunk.js": "/uiuc-dv-narrative-vis/static/js/2.24512cba.chunk.js",
     "static/js/2.24512cba.chunk.js.map": "/uiuc-dv-narrative-vis/static/js/2.24512cba.chunk.js.map",
     "index.html": "/uiuc-dv-narrative-vis/index.html",
-    "precache-manifest.b968b17ca132978ed210e4d8fe26245c.js": "/uiuc-dv-narrative-vis/precache-manifest.b968b17ca132978ed210e4d8fe26245c.js",
+    "precache-manifest.d0c32eaf7a8c23d170207cc00d1461eb.js": "/uiuc-dv-narrative-vis/precache-manifest.d0c32eaf7a8c23d170207cc00d1461eb.js",
     "service-worker.js": "/uiuc-dv-narrative-vis/service-worker.js",
-    "static/css/main.a54d8893.chunk.css.map": "/uiuc-dv-narrative-vis/static/css/main.a54d8893.chunk.css.map",
+    "static/css/main.935b60a8.chunk.css.map": "/uiuc-dv-narrative-vis/static/css/main.935b60a8.chunk.css.map",
     "static/js/2.24512cba.chunk.js.LICENSE.txt": "/uiuc-dv-narrative-vis/static/js/2.24512cba.chunk.js.LICENSE.txt",
     "static/media/2019.csv": "/uiuc-dv-narrative-vis/static/media/2019.de665a57.csv",
     "static/media/2019_region.csv": "/uiuc-dv-narrative-vis/static/media/2019_region.39427317.csv"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.4bc5ce6b.js",
     "static/js/2.24512cba.chunk.js",
-    "static/css/main.a54d8893.chunk.css",
+    "static/css/main.935b60a8.chunk.css",
     "static/js/main.baf48e21.chunk.js"
   ]
 }
