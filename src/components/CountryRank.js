@@ -57,7 +57,7 @@ export default function CountryRank(props) {
                 <Grid item xs={2}/>
                 <Grid item xs={8}>
                     <h4>Top 20 Happiest Countries</h4>
-                    <BarChart layout="horizontal" width={1600} height={800} data={data}
+                    <BarChart layout="horizontal" width={1200} height={600} data={data}
                               margin={{top: 20, right: 30, left: 20, bottom: 100}}>
                         <XAxis dataKey="name" type="category" interval={0} angle={-30}
                                tick={{fill: 'white', fontSize: 16, dy: 35, dx: -10}}/>
@@ -73,12 +73,12 @@ export default function CountryRank(props) {
                              animationDuration={2000}/>
                         <Bar dataKey="perceptions" stackId="a" fill="#81c784" animationBegin={100}
                              animationDuration={2000}/>
-                        <svg width={1600} height={800}>
+                        <svg width={1200} height={600}>
                             <AnnotationLabel
-                                x={938}
-                                y={320}
-                                dy={-100}
-                                dx={100}
+                                x={710}
+                                y={230}
+                                dy={-80}
+                                dx={80}
                                 color={"#ff8a65"}
                                 note={{
                                     "label": "Costa Rica tops the happiness index despite low gdp",
@@ -91,17 +91,17 @@ export default function CountryRank(props) {
                             />
 
                             <AnnotationCalloutRect
-                                x={350}
-                                y={370}
-                                dy={-120}
-                                dx={-120}
+                                x={300}
+                                y={263}
+                                dy={-90}
+                                dx={-90}
                                 color={"white"}
                                 note={{
                                     "label":"GDP, Social Support and Healthy life expectancy are the three biggest factors",
                                     "lineType":"horizontal",
                                     "padding": 10,
                                 }}
-                                subject={{"width":400,"height":290}}
+                                subject={{"width":250,"height":200}}
                             />
                         </svg>
                     </BarChart>

@@ -68,7 +68,7 @@ export default function DataChart(props) {
     };
 
     return (
-        <XYPlot width={800} height={800} yDomain={[0, 8]} xDomain={[0, 2]}>
+        <XYPlot width={1200} height={600} yDomain={[0, 8]} xDomain={[0, 2]}>
             <VerticalGridLines/>
             <HorizontalGridLines/>
             <XAxis style={{
